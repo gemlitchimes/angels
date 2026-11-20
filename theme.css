@@ -1,0 +1,567 @@
+/* ==========================================================================
+   Poesía of the Angels Chimes — theme for Google AI Studio
+   Scoped under html.angels-on so the popup switch toggles it cleanly.
+   Built with the Gemlit (Hộp Nhạc Trang Sức) layer-clearing approach so
+   ambient blobs, butterflies, and flying stars stay visible after load.
+   ========================================================================== */
+
+/* 1. KHỞI TẠO BIẾN MÀU ANGELS (NIGHT SKY VIOLET) */
+html.angels-on {
+  --g-bg: #0e0a16;
+  --g-fg: #f6f3fb;
+  --g-muted: #c9c1d8;
+  --g-primary: #ffffff;
+  --g-rose: #e6e0f0;
+  --g-gold: #ffffff;
+  --g-sky: #d8d2e6;
+  --g-silver: #cfd2dc;
+  --g-glass: 0.55; /* set from popup */
+  --g-glass-bg: rgba(255, 255, 255, calc(var(--g-glass) * 0.16));
+  --g-glass-strong: rgba(255, 255, 255, calc(var(--g-glass) * 0.22));
+  --g-glass-border: rgba(255, 255, 255, 0.22);
+  --g-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --g-glow: 0 0 18px rgba(255, 255, 255, 0.45);
+  --g-serif: "Angels Cormorant Garamond", "Cormorant Garamond", Georgia, serif;
+  --g-script: "Angels Great Vibes", "Great Vibes", cursive;
+
+  /* Nền gradient đêm tím nằm ở tầng html dưới cùng */
+  background: radial-gradient(ellipse at 50% 0%, #241a38 0%, #120d1d 55%, #0a0710 100%) fixed !important;
+  background-color: #0e0a16 !important;
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   2. ĐÁNH SẬP BIẾN MÀU NỀN CỦA ANGULAR MATERIAL / AI STUDIO
+   ========================================================================== */
+html.angels-on,
+html.angels-on body {
+  --mat-sys-primary: var(--g-primary) !important;
+  --mat-sys-on-primary: #1a1424 !important;
+  --mat-sys-primary-container: rgba(255, 255, 255, 0.16) !important;
+  --mat-sys-on-primary-container: var(--g-fg) !important;
+  --mat-sys-secondary-container: rgba(255, 255, 255, 0.12) !important;
+  --mat-sys-on-secondary-container: var(--g-fg) !important;
+
+  --mat-sys-background: transparent !important;
+  --mat-sys-surface: transparent !important;
+  --mat-sys-surface-container-lowest: transparent !important;
+  --mat-sys-surface-container-low: transparent !important;
+  --mat-sys-surface-container: transparent !important;
+  --mat-sys-surface-container-high: transparent !important;
+  --mat-sys-surface-container-highest: transparent !important;
+
+  --mat-sys-on-surface: var(--g-fg) !important;
+  --mat-sys-on-surface-variant: var(--g-muted) !important;
+  --mat-sys-outline: var(--g-silver) !important;
+  --mat-sys-outline-variant: rgba(207, 210, 220, 0.35) !important;
+}
+
+/* ---------- 3. DỌN SẠCH MỌI LỚP VỎ BỌC SAU KHI ANGULAR LOAD XONG ---------- */
+html.angels-on body,
+html.angels-on .theme-light,
+html.angels-on .theme-dark,
+html.angels-on .mat-app-background,
+html.angels-on .mat-typography,
+html.angels-on ms-app,
+html.angels-on .app-container,
+html.angels-on .layout-wrapper,
+html.angels-on .layout-main,
+html.angels-on .main-content,
+html.angels-on main,
+html.angels-on mat-sidenav-container,
+html.angels-on .mat-sidenav-container,
+html.angels-on mat-sidenav-content,
+html.angels-on .mat-sidenav-content,
+html.angels-on mat-drawer-container,
+html.angels-on .mat-drawer-container,
+html.angels-on mat-drawer-content,
+html.angels-on .mat-drawer-content,
+html.angels-on ms-prompt-switcher,
+html.angels-on ms-chunk-editor,
+html.angels-on ms-chat-session,
+html.angels-on .chat-container,
+html.angels-on .chat-view-container,
+html.angels-on .chat-session-content,
+html.angels-on ms-autoscroll-container,
+html.angels-on .page-container,
+html.angels-on .content-container,
+html.angels-on .mdc-drawer,
+html.angels-on .mdc-drawer__content,
+html.angels-on .angels-clear,
+html.angels-on ms-chat-bottom-bar,
+html.angels-on .bottom-container {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Đưa shell app lên z-index: 2 để nằm trên #angels-ambient (z-index: 1) nhưng vẫn trong suốt */
+html.angels-on ms-app,
+html.angels-on .app-container {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+html.angels-on body {
+  color: var(--g-fg) !important;
+  font-family: var(--g-serif);
+}
+html.angels-on :is(.material-symbols-outlined, .material-icons, mat-icon, button, a) {
+  color: var(--g-fg);
+}
+
+/* ---------- 4. PHÁ VỠ MẶT NẠ / CLIP CHE NỀN & SAO BƯỚM BAY ---------- */
+html.angels-on * {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+html.angels-on .chat-view-container::before,
+html.angels-on .chat-view-container::after,
+html.angels-on ms-autoscroll-container::before,
+html.angels-on ms-autoscroll-container::after {
+  display: none !important;
+}
+html.angels-on ms-prompt-switcher,
+html.angels-on .prompt-switcher-container,
+html.angels-on ms-prompt-input-wrapper,
+html.angels-on .prompt-input-wrapper,
+html.angels-on ms-prompt-box,
+html.angels-on .prompt-box-container {
+  overflow: visible !important;
+  contain: none !important;
+  clip-path: none !important;
+}
+
+/* ---------- 5. LỚP NỀN AMBIENT, BƯỚM & SAO BAY ---------- */
+#angels-ambient {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+}
+
+html:not(.angels-on) #angels-ambient,
+html:not(.angels-on) #angels-toast,
+html:not(.angels-on) #angels-welcome,
+html:not(.angels-on) #angels-glow {
+  display: none !important;
+}
+
+#angels-ambient .angels-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(85px);
+  opacity: 0.22;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: transform;
+}
+
+#angels-ambient .angels-blob.rose {
+  background: var(--g-rose);
+  width: 72vmax;
+  height: 72vmax;
+  left: -18%;
+  top: -22%;
+  animation: angels-orbit-rose 12s infinite alternate ease-in-out;
+}
+#angels-ambient .angels-blob.gold {
+  background: var(--g-gold);
+  width: 68vmax;
+  height: 68vmax;
+  right: -20%;
+  top: -4%;
+  animation: angels-orbit-gold 13s infinite alternate ease-in-out;
+}
+#angels-ambient .angels-blob.sky {
+  background: var(--g-sky);
+  width: 64vmax;
+  height: 64vmax;
+  left: 8%;
+  bottom: -34%;
+  animation: angels-orbit-sky 14s infinite alternate ease-in-out;
+}
+
+@keyframes angels-orbit-rose {
+  0%   { transform: translate(0vw, 0vh) rotate(0deg) scale(1.04); }
+  50%  { transform: translate(9vw, 10vh) rotate(20deg) scale(1.08); }
+  100% { transform: translate(14vw, 4vh) rotate(36deg) scale(1); }
+}
+@keyframes angels-orbit-gold {
+  0%   { transform: translate(0vw, 0vh) rotate(0deg) scale(1.05); }
+  50%  { transform: translate(-10vw, 9vh) rotate(-22deg) scale(0.98); }
+  100% { transform: translate(-4vw, 16vh) rotate(-40deg) scale(1.07); }
+}
+@keyframes angels-orbit-sky {
+  0%   { transform: translate(0vw, 0vh) rotate(0deg) scale(1.02); }
+  50%  { transform: translate(11vw, -7vh) rotate(18deg) scale(1.08); }
+  100% { transform: translate(18vw, 1vh) rotate(32deg) scale(0.98); }
+}
+
+/* Canvas bướm & sao bay: luôn nổi trên vùng nền, không chặn thao tác chuột */
+#angels-ambient canvas {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.75)) !important;
+}
+
+html.angels-still #angels-ambient canvas,
+html.angels-still #angels-glow {
+  display: none !important;
+}
+html.angels-still #angels-ambient .angels-blob {
+  animation: none !important;
+}
+
+/* ---------- 6. LIQUID-GLASS SURFACES & CHAT TURNS ---------- */
+html.angels-on :is(
+  ms-navbar, .nav-container, mat-sidenav, mat-drawer, .mat-drawer, .mat-sidenav,
+  ms-run-settings, ms-right-side-panel, .run-settings, .settings-panel,
+  ms-toolbar, mat-toolbar, .page-header, .toolbar-container
+) {
+  background: var(--g-glass-bg) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+  border-color: var(--g-glass-border) !important;
+  color: var(--g-fg) !important;
+}
+
+html.angels-on :is(ms-chat-turn .chat-turn-container, [class*="chat-turn-container"]) {
+  background: var(--g-glass-bg) !important;
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--g-glass-border) !important;
+  border-top-color: rgba(255, 255, 255, 0.4) !important;
+  border-radius: 22px !important;
+  box-shadow: none !important;
+  color: var(--g-fg) !important;
+  transition: box-shadow .4s;
+}
+
+html.angels-on,
+html.angels-on :is(ms-autoscroll-container, .chat-view-container, .chat-session-content) {
+  scroll-padding-top: 80px;
+}
+html.angels-on ms-chat-turn:first-of-type {
+  scroll-margin-top: 80px;
+}
+html.angels-on :is(ms-chat-turn .chat-turn-container, [class*="chat-turn-container"]) > :last-child {
+  margin-bottom: 0 !important;
+}
+html.angels-on ms-chat-turn :is(.turn-footer, .turn-actions, .actions-container, .actions, ms-chat-turn-options, [class*="footer"]) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+html.angels-on :is(ms-chat-turn .chat-turn-container.user, [class*="chat-turn-container"].user),
+html.angels-on :is(ms-chat-turn .chat-turn-container.model, [class*="chat-turn-container"].model) {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, calc(var(--g-glass) * 0.2)),
+    rgba(190, 170, 230, calc(var(--g-glass) * 0.08))
+  ) !important;
+}
+
+/* Tránh khung đôi và tránh nền đục đè sao/bướm trên turn chứa code block */
+html.angels-on :is(ms-chat-turn .chat-turn-container, [class*="chat-turn-container"]):has(:is(.chat-turn-container, [class*="chat-turn-container"])),
+html.angels-on :is(ms-chat-turn .chat-turn-container, [class*="chat-turn-container"]):has(ms-code-block) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Nội dung chat */
+html.angels-on :is(ms-chat-turn, ms-cmark-node, ms-text-chunk, .turn-content, .model-prompt-container) {
+  font-family: var(--g-serif) !important;
+  color: var(--g-fg) !important;
+}
+html.angels-on :is(ms-cmark-node, ms-text-chunk, .turn-content) :is(p, li, blockquote, td, th) {
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+html.angels-on :is(ms-cmark-node, .turn-content) :is(h1, h2, h3) {
+  font-family: var(--g-serif) !important;
+  font-weight: 600;
+  color: var(--g-primary) !important;
+}
+html.angels-on :is(ms-cmark-node, .turn-content) a {
+  color: var(--g-primary) !important;
+}
+html.angels-on :is(ms-cmark-node, .turn-content) blockquote {
+  border-left: 3px solid var(--g-silver) !important;
+  font-style: italic;
+  color: var(--g-muted) !important;
+}
+html.angels-on :is(.author-label, .turn-header, .chat-turn-header) {
+  font-family: var(--g-serif) !important;
+  font-style: italic;
+  letter-spacing: .08em;
+  color: var(--g-primary) !important;
+}
+html.angels-on :is(ms-thought-chunk, .thought-panel) {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px dashed var(--g-silver) !important;
+  border-radius: 16px !important;
+  color: var(--g-muted) !important;
+}
+
+/* ---------- 7. CODE BLOCK & INLINE CODE ---------- */
+html.angels-on :is(pre, code, ms-code-block, .code-block, .hljs) {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace !important;
+}
+html.angels-on ms-chat-turn ms-code-block {
+  display: block;
+  color: var(--g-fg) !important;
+}
+html.angels-on :not(pre) > code {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #fff !important;
+  border-radius: 6px;
+  padding: 0 .3em;
+}
+html.angels-on ms-chat-turn :is(hr, mat-divider, .mat-divider) {
+  display: none !important;
+}
+
+/* ---------- 8. PROMPT BOX ---------- */
+html.angels-on :is(ms-prompt-input-wrapper .prompt-input-wrapper, ms-prompt-box, .prompt-input-wrapper, .prompt-box-container) {
+  background: var(--g-glass-strong) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+  border: 1px solid var(--g-silver) !important;
+  border-radius: 28px !important;
+  box-shadow: var(--g-shadow) !important;
+  transition: box-shadow .4s;
+}
+html.angels-on :is(ms-prompt-input-wrapper .prompt-input-wrapper, ms-prompt-box, .prompt-input-wrapper, .prompt-box-container):has(:is(.prompt-input-wrapper, ms-prompt-box, .prompt-box-container)) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html.angels-on :is(ms-prompt-input-wrapper .prompt-input-wrapper, ms-prompt-box, .prompt-input-wrapper):not(:has(:is(.prompt-input-wrapper, ms-prompt-box, .prompt-box-container))):focus-within {
+  box-shadow: var(--g-glow), var(--g-shadow) !important;
+  border-color: var(--g-rose) !important;
+}
+html.angels-on :is(ms-prompt-input-wrapper, ms-prompt-box, ms-autosize-textarea, .prompt-input-wrapper) textarea {
+  background: transparent !important;
+  color: var(--g-fg) !important;
+  font-family: var(--g-serif) !important;
+  font-size: 1.15rem !important;
+  caret-color: #fff;
+}
+html.angels-on textarea::placeholder {
+  color: var(--g-muted) !important;
+  font-style: italic;
+  opacity: 1;
+}
+
+/* ---------- 9. SILVER BUTTONS & CONTROLS ---------- */
+html.angels-on :is(ms-run-button button, button.run-button) {
+  color: #1a1424 !important;
+  border: 1px solid #eef0f5 !important;
+  border-radius: 9999px !important;
+  background-color: transparent !important;
+  background-image:
+    linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .95) 48%, rgba(255, 255, 255, .6) 52%, transparent 70%),
+    linear-gradient(180deg, #fbfbfd 0%, #d3d6df 45%, #aeb2be 55%, #e7e9ef 100%) !important;
+  background-size: 260% 100%, 100% 100% !important;
+  background-position: 130% 0, 0 0 !important;
+  background-repeat: no-repeat !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .15), 0 4px 18px -6px rgba(255, 255, 255, .45) !important;
+  font-family: var(--g-serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: .06em;
+  transition: background-position .8s ease, box-shadow .4s, transform .3s !important;
+}
+html.angels-on :is(ms-run-button button, button.run-button):hover:not([disabled]) {
+  background-position: -30% 0, 0 0 !important;
+  transform: translateY(-1px);
+}
+html.angels-on :is(ms-run-button button, button.run-button) * {
+  color: #1a1424 !important;
+}
+html.angels-on :is(ms-run-button button, button.run-button)[disabled] {
+  opacity: .55;
+}
+
+html.angels-on :is(.mdc-button, .mat-mdc-button-base, .mat-mdc-icon-button) {
+  transition: box-shadow .4s, transform .3s;
+}
+html.angels-on :is(.mdc-button, .mat-mdc-icon-button):hover:not([disabled]) {
+  box-shadow: 0 0 0 1px rgba(220, 224, 235, .6), 0 0 14px rgba(255, 255, 255, .35);
+}
+html.angels-on :is(.mdc-button__label, .mat-mdc-button .mdc-button__label) {
+  font-family: var(--g-serif);
+  letter-spacing: .03em;
+}
+html.angels-on .mat-mdc-unelevated-button:not([disabled]) {
+  --mdc-filled-button-container-color: #d6d9e2;
+  --mat-button-filled-container-color: #d6d9e2;
+  --mdc-filled-button-label-text-color: #1a1424;
+  --mat-button-filled-label-text-color: #1a1424;
+}
+
+html.angels-on .mat-mdc-chip {
+  border: 1px solid var(--g-silver) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+html.angels-on .mat-mdc-slider {
+  --mdc-slider-handle-color: var(--g-primary);
+  --mdc-slider-active-track-color: var(--g-rose);
+  --mdc-slider-inactive-track-color: var(--g-silver);
+  --mat-slider-handle-color: var(--g-primary);
+  --mat-slider-active-track-color: var(--g-rose);
+  --mat-slider-inactive-track-color: var(--g-silver);
+}
+html.angels-on .mat-mdc-slide-toggle {
+  --mdc-switch-selected-track-color: var(--g-rose);
+  --mdc-switch-selected-handle-color: var(--g-primary);
+  --mat-slide-toggle-selected-track-color: var(--g-rose);
+  --mat-slide-toggle-selected-handle-color: var(--g-primary);
+}
+
+/* ---------- 10. MENUS, DIALOGS, TOOLTIPS & DETAILS ---------- */
+html.angels-on :is(.mat-mdc-menu-panel, .mat-mdc-select-panel, .mat-mdc-autocomplete-panel, .mat-mdc-dialog-surface, .mdc-dialog__surface) {
+  background: var(--g-glass-strong) !important;
+  backdrop-filter: blur(28px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(160%) !important;
+  border: 1px solid var(--g-glass-border) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--g-shadow) !important;
+  color: var(--g-fg) !important;
+}
+html.angels-on .cdk-overlay-backdrop.cdk-overlay-dark-backdrop {
+  background: rgba(10, 7, 16, 0.6) !important;
+  backdrop-filter: blur(4px);
+}
+html.angels-on .mdc-tooltip__surface {
+  background: rgba(30, 24, 44, 0.92) !important;
+  color: #fff !important;
+  font-family: var(--g-serif) !important;
+  border-radius: 10px !important;
+}
+html.angels-on ::selection {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+html.angels-on * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(207, 210, 220, 0.5) transparent;
+}
+html.angels-on hr,
+html.angels-on mat-divider {
+  border-color: rgba(207, 210, 220, 0.35) !important;
+}
+
+/* ---------- 11. CURSOR GLOW, TOAST & WELCOME ---------- */
+#angels-glow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2147482000;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, .22) 0%, rgba(220, 205, 255, .10) 35%, transparent 70%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+#angels-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 2147483000;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background: rgba(30, 24, 44, 0.75);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--g-silver);
+  box-shadow: var(--g-shadow);
+  color: #fff;
+  font: italic 1.1rem var(--g-serif);
+  pointer-events: none;
+  transition: opacity .5s, transform .5s;
+}
+#angels-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#angels-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(36, 26, 56, .92), rgba(10, 7, 16, .96));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: opacity .9s;
+}
+#angels-welcome.out {
+  opacity: 0;
+}
+#angels-welcome svg {
+  width: min(90vw, 900px);
+}
+#angels-welcome text {
+  font-family: var(--g-script);
+  font-size: 130px;
+  fill: #fff;
+  fill-opacity: 0;
+  stroke: #fff;
+  stroke-width: 1.2;
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
+  animation: angels-draw 2.6s ease forwards, angels-fill 1s 2s ease forwards;
+}
+#angels-welcome .credit {
+  margin: -10px 0 0;
+  font: italic 1.25rem var(--g-serif);
+  color: #d8d2e6;
+  letter-spacing: .06em;
+  opacity: 0;
+  transform: translateX(-60px);
+  animation: angels-glide 1.6s 1.8s cubic-bezier(.2, .7, .2, 1) forwards;
+}
+#angels-welcome .credit b {
+  color: #fff;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@keyframes angels-draw { to { stroke-dashoffset: 0; } }
+@keyframes angels-fill { to { fill-opacity: 1; } }
+@keyframes angels-glide { to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  #angels-welcome text { animation: none; stroke-dashoffset: 0; fill-opacity: 1; }
+  #angels-welcome .credit { animation: none; opacity: 1; transform: none; }
+  #angels-ambient .angels-blob { animation: none !important; }
+}
