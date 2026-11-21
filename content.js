@@ -46,7 +46,7 @@
       const n = Math.round(Math.min(14, Math.max(6, (W * H) / 120000)));
       flies = Array.from({ length: n }, () => ({
         x: Math.random() * W, y: Math.random() * H,
-        s: Math.random() * 7 + 7, vy: -(Math.random() * 0.35 + 0.15),
+        s: Math.random() * 6 + 6, vy: -(Math.random() * 0.35 + 0.15),
         vx: (Math.random() - 0.5) * 0.4, t: Math.random() * 10, f: Math.random() * 0.06 + 0.1,
       }));
     }
@@ -60,10 +60,23 @@
     function onMove(e) { mx = e.clientX; my = e.clientY; if (gx < -900) { gx = mx; gy = my; } }
 
     function wing(s, open, side) {
+      const k = side * open;
       ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(side * s * 1.1 * open, -s * 1.3, side * s * 1.6 * open, -s * 0.2, side * s * 0.15, s * 0.05);
-      ctx.bezierCurveTo(side * s * 1.1 * open, s * 0.3, side * s * 0.8 * open, s * 1.1, 0, s * 0.25);
+
+      // Cánh trên: vươn rộng chéo lên, bo tròn ở chóp và thu nhẹ về thân
+      ctx.moveTo(k * s * 0.04, -s * 0.08);
+      ctx.bezierCurveTo(k * s * 0.45, -s * 0.86, k * s * 1.26, -s * 1.04, k * s * 1.52, -s * 0.84);
+      ctx.bezierCurveTo(k * s * 1.56, -s * 0.54, k * s * 1.32, -s * 0.16, k * s * 1.10, -s * 0.04);
+      ctx.bezierCurveTo(k * s * 0.72,  s * 0.03, k * s * 0.34,  s * 0.02, k * s * 0.04,  s * 0.04);
+      ctx.closePath();
+
+      // Cánh dưới: bầu tròn rộng, tạo khía nhẹ với cánh trên và khe chữ V ở đáy
+      ctx.moveTo(k * s * 0.05,  s * 0.06);
+      ctx.bezierCurveTo(k * s * 0.62,  s * 0.05, k * s * 1.18,  s * 0.16, k * s * 1.12,  s * 0.46);
+      ctx.bezierCurveTo(k * s * 1.04,  s * 0.86, k * s * 0.76,  s * 1.18, k * s * 0.44,  s * 1.14);
+      ctx.bezierCurveTo(k * s * 0.22,  s * 1.08, k * s * 0.08,  s * 0.64, k * s * 0.04,  s * 0.28);
+      ctx.closePath();
+
       ctx.fill();
     }
 
@@ -82,6 +95,8 @@
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
       }
       ctx.shadowBlur = 14; ctx.shadowColor = "rgba(255,255,255,.9)";
+      ctx.strokeStyle = "#fff";
+      ctx.lineCap = "round";
       for (const b of flies) {
         b.t += b.f;
         b.x += b.vx + Math.sin(b.t * 0.23) * 0.6; b.y += b.vy + Math.cos(b.t * 0.31) * 0.25;
@@ -91,10 +106,25 @@
         ctx.save();
         ctx.translate(b.x, b.y);
         ctx.rotate(Math.sin(b.t * 0.23) * 0.35);
+
         ctx.globalAlpha = 0.85;
-        wing(b.s, open, -1); wing(b.s, open, 1);
+        wing(b.s, open, -1);
+        wing(b.s, open, 1);
+
+        // Thân mảnh + đôi râu mảnh chữ V
         ctx.globalAlpha = 1;
-        ctx.fillRect(-0.6, -b.s * 0.25, 1.2, b.s * 0.7);
+        ctx.beginPath();
+        ctx.ellipse(0, b.s * 0.08, Math.max(0.8, b.s * 0.065), b.s * 0.34, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.lineWidth = Math.max(0.5, b.s * 0.04);
+        ctx.beginPath();
+        ctx.moveTo(-b.s * 0.02, -b.s * 0.22);
+        ctx.quadraticCurveTo(-b.s * 0.08, -b.s * 0.46, -b.s * 0.13, -b.s * 0.68);
+        ctx.moveTo(b.s * 0.02, -b.s * 0.22);
+        ctx.quadraticCurveTo(b.s * 0.08, -b.s * 0.46, b.s * 0.13, -b.s * 0.68);
+        ctx.stroke();
+
         ctx.restore();
       }
       ctx.globalAlpha = 1;
